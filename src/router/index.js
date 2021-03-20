@@ -9,7 +9,7 @@ import store from "../store";
 
 Vue.use(VueRouter);
 
-const openRoutes = ["login"];
+// const openRoutes = ["login"];
 
 const routes = [
   {
@@ -17,21 +17,33 @@ const routes = [
     redirect: {
       name: "login",
     },
+    meta: {
+      requiresAuth: false,
+    },
   },
   {
     path: "/login",
     name: "login",
     component: Login,
+    meta: {
+      requiresAuth: false,
+    },
   },
   {
     path: "/register",
     name: "register",
     component: Register,
+    meta: {
+      requiresAuth: false,
+    },
   },
   {
     path: "/dashboard",
     name: "dashboard",
     component: Dashboard,
+    meta: {
+      requiresAuth: true,
+    },
   },
 ];
 
@@ -42,8 +54,7 @@ let router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   const isAuthenticated = store.state.auth;
-  if (!isAuthenticated && !openRoutes.includes(to.name))
-    next({ name: "login" });
+  if (!isAuthenticated && to.meta.requiresAuth) next({ name: "login" });
   else next();
 });
 export default router;

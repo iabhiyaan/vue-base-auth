@@ -27,6 +27,7 @@
         <button class="btn btn-info btn-block" type="submit">Log in</button>
       </div>
     </form>
+    <router-link :to="{ name: 'register' }">Register</router-link>
   </BaseAuthLayout>
 </template>
 
