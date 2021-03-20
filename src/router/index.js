@@ -1,10 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import Dashboard from "@/views/Dashboard.vue";
-import Register from "@/views/Register.vue";
-import Login from "@/views/Login.vue";
-
 import store from "../store";
 
 Vue.use(VueRouter);
@@ -24,7 +20,7 @@ const routes = [
   {
     path: "/login",
     name: "login",
-    component: Login,
+    component: () => import("../views/Login.vue"),
     meta: {
       requiresAuth: false,
     },
@@ -32,7 +28,8 @@ const routes = [
   {
     path: "/register",
     name: "register",
-    component: Register,
+    component: () => import("../views/Register.vue"),
+
     meta: {
       requiresAuth: false,
     },
@@ -40,7 +37,7 @@ const routes = [
   {
     path: "/dashboard",
     name: "dashboard",
-    component: Dashboard,
+    component: () => import("../views/Dashboard.vue"),
     meta: {
       requiresAuth: true,
     },
